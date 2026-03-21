@@ -162,8 +162,7 @@ class ExpenseTrackerApp(QWidget):
             slot=self.clear_all_expenses
         )
         
-        # Текстовое поле для отображения расходов
-        self.display_area = WidgetFactory.create_text_edit(self)
+        self.display_area = WidgetFactory.create_text_edit(parent=self, is_read_only=True)
         self.display_area.setStyleSheet("""
             QTextEdit {
                 font-family: monospace;
