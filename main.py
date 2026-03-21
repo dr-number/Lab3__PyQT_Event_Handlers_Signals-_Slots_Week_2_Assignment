@@ -52,6 +52,10 @@ class ExpenseManager:
     def __init__(self, expenses: Dict[str, float]):
         self.__EXPENSES = expenses
 
+    def clear_expenses(self):
+         for category in self.__EXPENSES:
+            self.__EXPENSES[category] = 0.0
+
     def get_catigories(self) -> list[str]:
         return self.__EXPENSES.keys()
     
@@ -257,8 +261,7 @@ class ExpenseTrackerApp(QWidget):
         )
         
         if reply == QMessageBox.StandardButton.Yes:
-            for category in self.expense_manager.__EXPENSES:
-                self.expense_manager.__EXPENSES[category] = 0.0
+            self.expense_manager.clear_expenses()
             self.update_display()
             QMessageBox.information(self, "Успешно", "Все расходы очищены!")
     
