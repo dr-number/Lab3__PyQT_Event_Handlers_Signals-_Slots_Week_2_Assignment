@@ -206,7 +206,6 @@ class ExpenseTrackerApp(QWidget):
         self.amount_input.setFocus()
     
     def add_expense(self):
-        """Добавление расхода"""
         try:
             amount_text = self.amount_input.text().strip()
             if not amount_text:
@@ -240,7 +239,6 @@ class ExpenseTrackerApp(QWidget):
             QMessageBox.warning(self, "Ошибка", "Введите корректную сумму (число)!")
     
     def show_total_expenses(self):
-        """Отображение общей суммы расходов"""
         total = self.expense_manager.get_total_expenses()
         message_box = QMessageBox(self)
         message_box.setWindowTitle("Общая сумма расходов")
@@ -249,7 +247,6 @@ class ExpenseTrackerApp(QWidget):
         message_box.exec()
     
     def clear_all_expenses(self):
-        """Очистка всех расходов"""
         reply = QMessageBox.question(
             self, 
             "Подтверждение", 
@@ -258,7 +255,6 @@ class ExpenseTrackerApp(QWidget):
         )
         
         if reply == QMessageBox.StandardButton.Yes:
-            # Сброс всех сумм
             for category in self.expense_manager.expenses:
                 self.expense_manager.expenses[category] = 0.0
             self.update_display()
