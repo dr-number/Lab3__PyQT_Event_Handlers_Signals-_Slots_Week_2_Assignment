@@ -49,27 +49,24 @@ class WidgetFactory:
 
 # Класс для управления категориями расходов
 class ExpenseManager:
-    def __init__(self):
-        self.expenses: Dict[str, float] = {
-            "Продукты": 0.0,
-            "Транспорт": 0.0,
-            "Развлечения": 0.0,
-            "Коммунальные услуги": 0.0,
-            "Другое": 0.0
-        }
+    def __init__(self, expenses: Dict[str, float]):
+        self.__EXPENSES = expenses
+
+    def get_catigories(self) -> list[str]:
+        return self.__EXPENSES.keys()
     
     def add_expense(self, category: str, amount: float) -> bool:
-        if category in self.expenses and amount > 0:
-            self.expenses[category] += amount
+        if category in self.__EXPENSES and amount > 0:
+            self.__EXPENSES[category] += amount
             return True
         return False
     
     def get_total_expenses(self) -> float:
-        return sum(self.expenses.values())
+        return sum(self.__EXPENSES.values())
     
     def get_expenses_summary(self) -> str:
         summary = "=== Расходы по категориям ===\n\n"
-        for category, amount in self.expenses.items():
+        for category, amount in self.__EXPENSES.items():
             if amount > 0:
                 summary += f"{category}: {amount:.2f} руб.\n"
             else:
@@ -98,7 +95,13 @@ class CategorySelector:
 class ExpenseTrackerApp(QWidget):
     def __init__(self):
         super().__init__()
-        self.expense_manager = ExpenseManager()
+        self.expense_manager = ExpenseManager(expenses = {
+            "Продукты": 0.0,
+            "Транспорт": 0.0,
+            "Развлечения": 0.0,
+            "Коммунальные услуги": 0.0,
+            "Другое": 0.0
+        })
         self.init_ui()
         self.category_selector = CategorySelector(self.category_buttons)
         self.category_selector.set_default_category(category="Продукты")
@@ -136,10 +139,9 @@ class ExpenseTrackerApp(QWidget):
         """)
         
         category_layout = QVBoxLayout()
-        categories = ["Продукты", "Транспорт", "Развлечения", "Коммунальные услуги", "Другое"]
         self.category_buttons = {}
         
-        for category in categories:
+        for category in self.expense_manager.get_catigories():
             radio_button = WidgetFactory.create_radio_button(text=category, parent=self)
             self.category_buttons[category] = radio_button
             category_layout.addWidget(radio_button)
@@ -255,8 +257,8 @@ class ExpenseTrackerApp(QWidget):
         )
         
         if reply == QMessageBox.StandardButton.Yes:
-            for category in self.expense_manager.expenses:
-                self.expense_manager.expenses[category] = 0.0
+            for category in self.expense_manager.__EXPENSES:
+                self.expense_manager.__EXPENSES[category] = 0.0
             self.update_display()
             QMessageBox.information(self, "Успешно", "Все расходы очищены!")
     
