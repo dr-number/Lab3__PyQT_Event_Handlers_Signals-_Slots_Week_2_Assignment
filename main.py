@@ -12,18 +12,16 @@ from PyQt6.QtGui import QKeyEvent
 class WidgetFactory:
     @staticmethod
     def create_label(text: str, parent: QWidget) -> QLabel:
-        label = QLabel(text, parent)
-        return label
+        return QLabel(text, parent)
 
     @staticmethod
     def create_radio_button(text: str, parent: QWidget) -> QRadioButton:
-        radio_button = QRadioButton(text, parent)
-        return radio_button
+        return QRadioButton(text, parent)
 
     @staticmethod
-    def create_line_edit(parent: QWidget) -> QLineEdit:
+    def create_line_edit(title: str, parent: QWidget) -> QLineEdit:
         line_edit = QLineEdit(parent)
-        line_edit.setPlaceholderText("Введите сумму расхода")
+        line_edit.setPlaceholderText(title)
         return line_edit
 
     @staticmethod
@@ -32,9 +30,9 @@ class WidgetFactory:
         return button
 
     @staticmethod
-    def create_text_edit(parent: QWidget) -> QTextEdit:
+    def create_text_edit(parent: QWidget, is_read_only: bool = False) -> QTextEdit:
         text_edit = QTextEdit(parent)
-        text_edit.setReadOnly(True)
+        text_edit.setReadOnly(is_read_only)
         return text_edit
 
 # Класс для управления категориями расходов
@@ -110,7 +108,7 @@ class ExpenseTrackerApp(QWidget):
         """)
         
         # Поле для ввода суммы
-        self.amount_input = WidgetFactory.create_line_edit(self)
+        self.amount_input = WidgetFactory.create_line_edit("Введите сумму расхода", self)
         
         # Группа для категорий
         category_group = QGroupBox("Выберите категорию расхода", self)
