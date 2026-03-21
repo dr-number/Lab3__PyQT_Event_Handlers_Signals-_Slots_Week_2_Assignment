@@ -29,13 +29,16 @@ class WidgetFactory:
         text: str, 
         parent: QWidget, 
         icon: QStyle.StandardPixmap = None,
-        slot = None
+        slot = None,
+        tip: str = ''
         ) -> QPushButton:
         button = QPushButton(text, parent)
         if icon:
             button.setIcon(parent.style().standardIcon(icon))
         if slot:
             button.clicked.connect(slot)
+        if tip:
+            button.setToolTip(tip)
         return button
 
     @staticmethod
@@ -147,19 +150,22 @@ class ExpenseTrackerApp(QWidget):
             text="Добавить расход", 
             icon=QStyle.StandardPixmap.SP_DialogApplyButton,
             parent=self,
-            slot=self.add_expense
+            slot=self.add_expense,
+            tip="Нажмите Enter, чтобы добавить расход"
         )
         self.show_total_button = WidgetFactory.create_button(
             text="Показать общую сумму",
             icon=QStyle.StandardPixmap.SP_MessageBoxInformation,
             parent=self,
-            slot=self.show_total_expenses
+            slot=self.show_total_expenses,
+            tip="Нажмите Alt, чтобы показать общую сумму"
         )
         self.clear_button = WidgetFactory.create_button(
             text="Очистить все расходы", 
             icon=QStyle.StandardPixmap.SP_DialogResetButton,
             parent=self,
-            slot=self.clear_all_expenses
+            slot=self.clear_all_expenses,
+            tip="Нажмите Ctrl, чтобы очистить все расходы"
         )
         
         self.display_area = WidgetFactory.create_text_edit(parent=self, is_read_only=True)
@@ -265,15 +271,11 @@ class ExpenseTrackerApp(QWidget):
         self.display_area.append(summary)
     
     def keyPressEvent(self, event: QKeyEvent):
-        """Обработка нажатий клавиш"""
         if event.key() == Qt.Key.Key_Return or event.key() == Qt.Key.Key_Enter:
-            # Добавление расхода по нажатию Enter
             self.add_expense()
-        elif event.key() == Qt.Key.Key_T:
-            # Показать общую сумму по нажатию 'T'
+        elif event.key() == Qt.Key.Key_Alt:
             self.show_total_expenses()
-        elif event.key() == Qt.Key.Key_C:
-            # Очистить все расходы по нажатию 'C'
+        elif event.key() == Qt.Key.Key_Control:
             self.clear_all_expenses()
         else:
             super().keyPressEvent(event)
