@@ -4,12 +4,9 @@
     venv\Scripts\activate
     pip3 install -r requirements.txt
 
-
-
-# Project preparation
-1) In the root of the project, create an images folder and fill it with images with names that will install the files in the desired order.
-
-2) At the root of the project, create a file called info.json with the following structure:
-
-# Run
-    D:\...\dir_project\venv\Scripts\python.exe D:\...\dir_project\main.py
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/task.jpg">
+      <p align="center">Вариант №2</p>
+   </p>
+</figure>
