@@ -173,40 +173,30 @@ class ExpenseTrackerApp(QWidget):
             }
         """)
         
-        # Обновление отображения
         self.update_display()
-        
-        # Настройка компоновки
         main_layout = QVBoxLayout()
-        
-        # Верхняя часть
         main_layout.addWidget(self.title_label)
         
-        # Поле ввода
         input_layout = QHBoxLayout()
         amount_label = WidgetFactory.create_label("Сумма (руб.):", self)
         input_layout.addWidget(amount_label)
         input_layout.addWidget(self.amount_input)
         main_layout.addLayout(input_layout)
         
-        # Категории
         main_layout.addWidget(category_group)
         
-        # Кнопки
         buttons_layout = QHBoxLayout()
         buttons_layout.addWidget(self.add_button)
         buttons_layout.addWidget(self.show_total_button)
         buttons_layout.addWidget(self.clear_button)
         main_layout.addLayout(buttons_layout)
         
-        # Область отображения
         main_layout.addWidget(self.display_area)
         
         self.setLayout(main_layout)
         self.setWindowTitle("510З_Ларионов_НЮ_вариант_№12_2_Вариант__Калькулятор_расходов")
         self.setMinimumSize(500, 600)
         
-        # Установка фокуса на поле ввода
         self.amount_input.setFocus()
     
     def add_expense(self):
