@@ -149,17 +149,18 @@ class ExpenseTrackerApp(QWidget):
             parent=self,
             slot=self.add_expense
         )
-
-        
-        # Кнопка показа общей суммы с иконкой
-        self.show_total_button = WidgetFactory.create_button("Показать общую сумму", self)
-        self.show_total_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_MessageBoxInformation))
-        self.show_total_button.clicked.connect(self.show_total_expenses)
-        
-        # Кнопка очистки всех расходов
-        self.clear_button = WidgetFactory.create_button("Очистить все расходы", self)
-        self.clear_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogResetButton))
-        self.clear_button.clicked.connect(self.clear_all_expenses)
+        self.show_total_button = WidgetFactory.create_button(
+            text="Показать общую сумму",
+            icon=QStyle.StandardPixmap.SP_MessageBoxInformation,
+            parent=self,
+            slot=self.show_total_expenses
+        )
+        self.clear_button = WidgetFactory.create_button(
+            text="Очистить все расходы", 
+            icon=QStyle.StandardPixmap.SP_DialogResetButton,
+            parent=self,
+            slot=self.clear_all_expenses
+        )
         
         # Текстовое поле для отображения расходов
         self.display_area = WidgetFactory.create_text_edit(self)
