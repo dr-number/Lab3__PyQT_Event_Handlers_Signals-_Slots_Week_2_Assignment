@@ -25,3 +25,11 @@
       <p align="center">Стартовое окно программы</p>
    </p>
 </figure>
+
+## Добавление расхода
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/2-1_pre_add.jpg">
+      <p align="center">Ввод данных для добавления товара</p>
+   </p>
+</figure>
