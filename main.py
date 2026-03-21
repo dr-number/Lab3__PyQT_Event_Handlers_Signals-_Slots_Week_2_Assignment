@@ -13,8 +13,7 @@ import os
 class WidgetFactory:
     @staticmethod
     def create_label(text: str, parent: QWidget) -> QLabel:
-        label = QLabel(text, parent)
-        return label
+        return QLabel(text, parent)
 
     @staticmethod
     def create_radio_button(text: str, parent: QWidget) -> QRadioButton:
