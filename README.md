@@ -47,3 +47,17 @@
       <p align="center">Новй расход успешно отражен в списке</p>
    </p>
 </figure>
+
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/3_add_other.jpg">
+      <p align="center">Добавление других расходов</p>
+   </p>
+</figure>
+
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/4_add_other_check_summ.jpg">
+      <p align="center">Проверка подсчета общей суммы</p>
+   </p>
+</figure>
