@@ -69,3 +69,21 @@
       <p align="center">Просмотр общей суммы</p>
    </p>
 </figure>
+
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/6_clear_all.jpg">
+      <p align="center">Очистка списка расходов</p>
+   </p>
+</figure>
+
+
+# Запуск действия с клавиатуры
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/8_run_in_keyboard.jpg">
+      <p align="center">При наведении на кнопку появится подсказка от том как запустить действие с клавиатуры</p>
+   </p>
+
+   <b>Alt</b> - показать общую сумму<br>
+</figure>
