@@ -15,4 +15,5 @@
     D:\...\dir_project\venv\Scripts\python.exe D:\...\dir_project\main.py
 
 # or
+    cd /d D:\...\dir_project
     venv\Scripts\python.exe main.py
