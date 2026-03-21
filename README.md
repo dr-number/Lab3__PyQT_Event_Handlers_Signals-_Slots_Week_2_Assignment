@@ -33,3 +33,17 @@
       <p align="center">Ввод данных для добавления товара</p>
    </p>
 </figure>
+
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/2-2_message_about_add.jpg">
+      <p align="center">Расход успешно добавлен</p>
+   </p>
+</figure>
+
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/2-3_phinish_add.jpg">
+      <p align="center">Новй расход успешно отражен в списке</p>
+   </p>
+</figure>
