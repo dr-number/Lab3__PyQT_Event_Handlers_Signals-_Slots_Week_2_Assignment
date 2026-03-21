@@ -1,19 +1,19 @@
 import sys
-from typing import Dict, List, Optional
+from typing import Dict, Optional
 from PyQt6.QtWidgets import (
     QApplication, QWidget, QVBoxLayout, QHBoxLayout, QLabel, 
     QRadioButton, QPushButton, QMessageBox, QLineEdit, QTextEdit,
-    QButtonGroup, QGroupBox, QFrame
+    QGroupBox, QStyle
 )
-from PyQt6.QtCore import Qt, QEvent
-from PyQt6.QtGui import QIcon, QKeyEvent
-import os
+from PyQt6.QtCore import Qt
+from PyQt6.QtGui import QKeyEvent
 
 # Класс для создания элементов UI 
 class WidgetFactory:
     @staticmethod
     def create_label(text: str, parent: QWidget) -> QLabel:
-        return QLabel(text, parent)
+        label = QLabel(text, parent)
+        return label
 
     @staticmethod
     def create_radio_button(text: str, parent: QWidget) -> QRadioButton:
@@ -109,7 +109,7 @@ class ExpenseTrackerApp(QWidget):
             }
         """)
         
-        # Поле для ввода суммы с иконкой
+        # Поле для ввода суммы
         self.amount_input = WidgetFactory.create_line_edit(self)
         
         # Группа для категорий
@@ -142,14 +142,19 @@ class ExpenseTrackerApp(QWidget):
         
         # Кнопка добавления расхода с иконкой
         self.add_button = WidgetFactory.create_button("Добавить расход", self)
-        # Установка иконки (используем стандартную иконку из PyQt6)
-        self.add_button.setIcon(self.style().standardIcon(getattr(QStyle, 'SP_FileDialogContentsView')))
+        # Используем корректные константы иконок
+        self.add_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogApplyButton))
         self.add_button.clicked.connect(self.add_expense)
         
-        # Кнопка показа общей суммы
+        # Кнопка показа общей суммы с иконкой
         self.show_total_button = WidgetFactory.create_button("Показать общую сумму", self)
-        self.show_total_button.setIcon(self.style().standardIcon(getattr(QStyle, 'SP_DialogApplyButton')))
+        self.show_total_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_MessageBoxInformation))
         self.show_total_button.clicked.connect(self.show_total_expenses)
+        
+        # Кнопка очистки всех расходов
+        self.clear_button = WidgetFactory.create_button("Очистить все расходы", self)
+        self.clear_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogResetButton))
+        self.clear_button.clicked.connect(self.clear_all_expenses)
         
         # Текстовое поле для отображения расходов
         self.display_area = WidgetFactory.create_text_edit(self)
@@ -186,6 +191,7 @@ class ExpenseTrackerApp(QWidget):
         buttons_layout = QHBoxLayout()
         buttons_layout.addWidget(self.add_button)
         buttons_layout.addWidget(self.show_total_button)
+        buttons_layout.addWidget(self.clear_button)
         main_layout.addLayout(buttons_layout)
         
         # Область отображения
@@ -241,6 +247,22 @@ class ExpenseTrackerApp(QWidget):
         message_box.setText(f"Общая сумма всех расходов: {total:.2f} руб.")
         message_box.exec()
     
+    def clear_all_expenses(self):
+        """Очистка всех расходов"""
+        reply = QMessageBox.question(
+            self, 
+            "Подтверждение", 
+            "Вы уверены, что хотите очистить все расходы?",
+            QMessageBox.StandardButton.Yes | QMessageBox.StandardButton.No
+        )
+        
+        if reply == QMessageBox.StandardButton.Yes:
+            # Сброс всех сумм
+            for category in self.expense_manager.expenses:
+                self.expense_manager.expenses[category] = 0.0
+            self.update_display()
+            QMessageBox.information(self, "Успешно", "Все расходы очищены!")
+    
     def update_display(self):
         """Обновление текстового поля с расходами"""
         summary = self.expense_manager.get_expenses_summary()
@@ -255,6 +277,9 @@ class ExpenseTrackerApp(QWidget):
         elif event.key() == Qt.Key.Key_T:
             # Показать общую сумму по нажатию 'T'
             self.show_total_expenses()
+        elif event.key() == Qt.Key.Key_C:
+            # Очистить все расходы по нажатию 'C'
+            self.clear_all_expenses()
         else:
             super().keyPressEvent(event)
 

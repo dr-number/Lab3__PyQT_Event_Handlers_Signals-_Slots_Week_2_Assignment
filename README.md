@@ -10,3 +10,9 @@
       <p align="center">Вариант №2</p>
    </p>
 </figure>
+
+# Run
+    D:\...\dir_project\venv\Scripts\python.exe D:\...\dir_project\main.py
+
+# or
+    venv\Scripts\python.exe main.py
