@@ -25,8 +25,17 @@ class WidgetFactory:
         return line_edit
 
     @staticmethod
-    def create_button(text: str, parent: QWidget) -> QPushButton:
+    def create_button(
+        text: str, 
+        parent: QWidget, 
+        icon: QStyle.StandardPixmap = None,
+        slot = None
+        ) -> QPushButton:
         button = QPushButton(text, parent)
+        if icon:
+            button.setIcon(parent.style().standardIcon(icon))
+        if slot:
+            button.clicked.connect(slot)
         return button
 
     @staticmethod
@@ -89,12 +98,10 @@ class ExpenseTrackerApp(QWidget):
         self.expense_manager = ExpenseManager()
         self.init_ui()
         self.category_selector = CategorySelector(self.category_buttons)
-        self.category_selector.set_default_category("Продукты")
+        self.category_selector.set_default_category(category="Продукты")
     
     def init_ui(self):
-        # Создание элементов интерфейса через фабрику
-        # Заголовок с CSS стилями
-        self.title_label = WidgetFactory.create_label("Ежедневный учет расходов", self)
+        self.title_label = WidgetFactory.create_label(text="Ежедневный учет расходов", parent=self)
         self.title_label.setStyleSheet("""
             QLabel {
                 font-size: 18px;
@@ -107,11 +114,9 @@ class ExpenseTrackerApp(QWidget):
             }
         """)
         
-        # Поле для ввода суммы
-        self.amount_input = WidgetFactory.create_line_edit("Введите сумму расхода", self)
-        
-        # Группа для категорий
-        category_group = QGroupBox("Выберите категорию расхода", self)
+        self.amount_input = WidgetFactory.create_line_edit(title="Введите сумму расхода", parent=self)
+
+        category_group = QGroupBox(title="Выберите категорию расхода", parent=self)
         category_group.setStyleSheet("""
             QGroupBox {
                 font-weight: bold;
@@ -132,17 +137,19 @@ class ExpenseTrackerApp(QWidget):
         self.category_buttons = {}
         
         for category in categories:
-            radio_button = WidgetFactory.create_radio_button(category, self)
+            radio_button = WidgetFactory.create_radio_button(text=category, parent=self)
             self.category_buttons[category] = radio_button
             category_layout.addWidget(radio_button)
         
         category_group.setLayout(category_layout)
         
-        # Кнопка добавления расхода с иконкой
-        self.add_button = WidgetFactory.create_button("Добавить расход", self)
-        # Используем корректные константы иконок
-        self.add_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogApplyButton))
-        self.add_button.clicked.connect(self.add_expense)
+        self.add_button = WidgetFactory.create_button(
+            text="Добавить расход", 
+            icon=QStyle.StandardPixmap.SP_DialogApplyButton,
+            parent=self,
+            slot=self.add_expense
+        )
+
         
         # Кнопка показа общей суммы с иконкой
         self.show_total_button = WidgetFactory.create_button("Показать общую сумму", self)
