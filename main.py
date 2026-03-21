@@ -198,7 +198,7 @@ class ExpenseTrackerApp(QWidget):
         main_layout.addWidget(self.display_area)
         
         self.setLayout(main_layout)
-        self.setWindowTitle("Учет ежедневных расходов")
+        self.setWindowTitle("510З_Ларионов_НЮ_вариант_№12_2_Вариант__Калькулятор_расходов")
         self.setMinimumSize(500, 600)
         
         # Установка фокуса на поле ввода
