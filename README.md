@@ -61,3 +61,11 @@
       <p align="center">Проверка подсчета общей суммы</p>
    </p>
 </figure>
+
+# Другие функции
+<figure>
+   <p align="center">
+      <img src="https://github.com/dr-number/Lab3__PyQT_Event_Handlers_Signals-_Slots_Week_2_Assignment/blob/main/for_read_me/5_show_summ.jpg">
+      <p align="center">Просмотр общей суммы</p>
+   </p>
+</figure>
